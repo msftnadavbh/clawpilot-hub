@@ -268,7 +268,7 @@
     "slug": "msx-crm",
     "name": "MSX CRM",
     "category": "Sales & Demos",
-    "description": "Query Microsoft Sales Experience (MSX / Dynamics 365) data — accounts, opportunities, milestones, tasks, and deal teams. Triggers on MSX, CRM, milestones, pipeline, deal team, or any MCAPS sales question.",
+    "description": "Query Microsoft Sales Experience (MSX / Dynamics 365) data \u2014 accounts, opportunities, milestones, tasks, and deal teams. Triggers on MSX, CRM, milestones, pipeline, deal team, or any MCAPS sales question.",
     "tags": [
       "MSX",
       "CRM",
@@ -292,7 +292,7 @@
     "slug": "generatemyconnect",
     "name": "Generate My Connect",
     "category": "Productivity",
-    "description": "Generate a high-quality Microsoft Connect draft from your real work — meetings, emails, Teams chats, project deliverables, and customer architecture sessions. Focuses on measurable impact, growth, trade-offs, and forward plan.",
+    "description": "Generate a high-quality Microsoft Connect draft from your real work \u2014 meetings, emails, Teams chats, project deliverables, and customer architecture sessions. Focuses on measurable impact, growth, trade-offs, and forward plan.",
     "tags": [
       "Connect",
       "Microsoft",
@@ -305,6 +305,30 @@
     "trending": true,
     "version": "1.0.0",
     "author": "Roey Zalta",
+    "compatible": [
+      "ClawPilot",
+      "Claude Code",
+      "Cursor",
+      "GitHub Copilot"
+    ]
+  },
+  {
+    "slug": "aka-deploy",
+    "name": "aka-deploy",
+    "category": "Productivity",
+    "description": "Deploy a local HTML file or project to Vercel production, then register the URL as an aka.ms/<vanity> short link via the aka.ms Link Management UI.",
+    "tags": [
+      "Vercel",
+      "aka.ms",
+      "Deploy",
+      "Shortlink",
+      "Microsoft"
+    ],
+    "verified": true,
+    "popular": false,
+    "trending": true,
+    "version": "1.0.0",
+    "author": "roey zalta",
     "compatible": [
       "ClawPilot",
       "Claude Code",
