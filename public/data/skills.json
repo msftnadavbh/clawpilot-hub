@@ -335,5 +335,30 @@
       "Cursor",
       "GitHub Copilot"
     ]
+  },
+  {
+    "slug": "se-inbox-setup",
+    "name": "SE Inbox Setup",
+    "category": "Productivity",
+    "description": "One-shot Outlook organizer for Microsoft SEs. Creates 6 SE-themed folders + colored master categories, installs 5 inbox rules, and bulk-categorizes/moves all existing mail (skipping flagged). Triggers: 'organize my inbox', 'inbox to zero', 'color-code my mail'.",
+    "tags": [
+      "Outlook",
+      "Productivity",
+      "MCAPS",
+      "Graph",
+      "Inbox-Zero",
+      "SE"
+    ],
+    "verified": true,
+    "popular": true,
+    "trending": true,
+    "version": "1.0.0",
+    "author": "roey zalta",
+    "compatible": [
+      "ClawPilot",
+      "Claude Code",
+      "Cursor",
+      "GitHub Copilot"
+    ]
   }
 ]
