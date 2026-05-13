@@ -1,7 +1,8 @@
 // Cowork  background service workerGhost 
 // Schedules randomized workday firings of safe Cowork prompts.
 
-const COWORK_URL = "https://m365.cloud.microsoft/chat/agent/T_7e151bfa-7eaa-0802-049f-5d3b98c95e04.weave";
+const COWORK_URL = "https://m365.cloud.microsoft/chat";
+const COWORK_AGENT_ID = "T_7e151bfa-7eaa-0802-049f-5d3b98c95e04.weave";
 const TICK_ALARM = "cowork-ghost-tick";
 const TICK_INTERVAL_MIN = 30;
 const DEFAULT_DAILY_TARGET = 5;

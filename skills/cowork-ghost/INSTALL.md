@@ -10,7 +10,7 @@ You'll be installing a small Microsoft Edge extension that silently fires safe C
 
 Download the zip:
 
-👉 **[cowork-ghost-extension-v1.3.1.zip](./cowork-ghost-extension-v1.3.1.zip)**
+👉 **[cowork-ghost-extension-v1.4.0.zip](./cowork-ghost-extension-v1.4.0.zip)**
 
 (~12 KB. Save it to your `Downloads` folder.)
 
