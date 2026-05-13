@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Cowork Ghost",
+  "version": "1.0.0",
+  "description": "Silently fires safe, read-only prompts into M365 Copilot Cowork at random workday moments — so you look like an active coworker.",
+  "author": "MCAPS Israel",
+  "permissions": ["alarms", "storage", "tabs", "scripting"],
+  "host_permissions": [
+    "https://m365.cloud.microsoft/*",
+    "https://*.cloud.microsoft/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Cowork Ghost",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://m365.cloud.microsoft/chat/agent/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["prompts.json"],
+      "matches": ["https://m365.cloud.microsoft/*"]
+    }
+  ]
+}

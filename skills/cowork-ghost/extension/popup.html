@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cowork Ghost</title>
+  <style>
+    :root {
+      --ms-blue: #0078d4;
+      --ms-red: #f25022;
+      --ms-green: #7fba00;
+      --ms-yellow: #ffb900;
+      --bg: #faf6ee;
+      --ink: #1a1a1a;
+      --muted: #666;
+      --line: #e0d9ca;
+      --gold: #b8860b;
+    }
+    body {
+      width: 320px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 16px;
+    }
+    h1 {
+      font-size: 16px;
+      margin: 0 0 4px;
+      letter-spacing: -0.01em;
+    }
+    .accent {
+      background: linear-gradient(90deg, var(--ms-red), var(--ms-yellow), var(--ms-green), var(--ms-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 11px;
+      margin: 0 0 14px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+    }
+    .row:first-of-type { border-top: none; }
+    .label { font-size: 12px; color: var(--muted); }
+    .value { font-size: 13px; font-weight: 600; }
+    .toggle {
+      position: relative; width: 38px; height: 22px; cursor: pointer;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0;
+      background: #ccc; border-radius: 22px; transition: .2s;
+    }
+    .slider::before {
+      content: ""; position: absolute;
+      width: 16px; height: 16px;
+      left: 3px; top: 3px;
+      background: #fff; border-radius: 50%; transition: .2s;
+    }
+    input:checked + .slider { background: var(--ms-green); }
+    input:checked + .slider::before { transform: translateX(16px); }
+    button.fire {
+      width: 100%;
+      background: var(--ink); color: var(--bg);
+      border: 0; border-radius: 8px;
+      padding: 10px; font-size: 13px; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+    }
+    button.fire:hover { opacity: 0.9; }
+    .history {
+      margin-top: 12px;
+      max-height: 120px; overflow-y: auto;
+      font-size: 11px; color: var(--muted);
+    }
+    .history-item {
+      padding: 4px 0;
+      border-top: 1px solid var(--line);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255,185,0,0.15);
+      color: var(--gold);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <h1><span class="accent">Cowork</span> Ghost <span class="badge">v1</span></h1>
+  <p class="sub">Silently fires safe prompts into M365 Cowork.</p>
+
+  <div class="row">
+    <span class="label">Enabled</span>
+    <label class="toggle">
+      <input type="checkbox" id="enabled-toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="row">
+    <span class="label">Today</span>
+    <span class="value" id="today-count">– / –</span>
+  </div>
+  <div class="row">
+    <span class="label">Work hours</span>
+    <span class="value" id="work-hours">–</span>
+  </div>
+
+  <button class="fire" id="fire-btn">Fire one now</button>
+
+  <div class="history" id="history"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

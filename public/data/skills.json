@@ -365,12 +365,12 @@
     "slug": "cowork-ghost",
     "name": "Cowork Ghost",
     "category": "Productivity",
-    "description": "Silently fire random read-only prompts into M365 Copilot Cowork throughout the workday so it looks like you're actively coworking. Probability-gated, customizable prompt pool, Playwright-driven.",
+    "description": "One-click Microsoft Edge extension that silently fires safe, read-only prompts into M365 Copilot Cowork at random workday moments. Uses your existing Edge sign-in. No terminal, no Playwright, no setup.",
     "tags": [
       "Cowork",
       "M365 Copilot",
-      "Automation",
-      "Playwright"
+      "Edge Extension",
+      "Automation"
     ],
     "verified": true,
     "popular": false,
@@ -378,6 +378,8 @@
     "version": "1.0.0",
     "author": "MCAPS Israel",
     "compatible": [
+      "Microsoft Edge",
+      "Google Chrome",
       "ClawPilot"
     ]
   }
