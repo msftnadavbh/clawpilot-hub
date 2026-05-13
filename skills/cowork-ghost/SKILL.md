@@ -18,7 +18,7 @@ If your team is being measured on Cowork adoption / engagement, this gets you to
 ## Install (1 minute, no terminal)
 
 1. Download the extension:
-   - **[cowork-ghost-extension-v1.0.0.zip](./cowork-ghost-extension-v1.0.0.zip)** (or browse the [extension/](./extension/) folder and clone it)
+   - **[cowork-ghost-extension-v1.3.1.zip](./cowork-ghost-extension-v1.3.1.zip)** (or browse the [extension/](./extension/) folder and clone it)
 2. Unzip it somewhere you won't accidentally delete (e.g. `~/Documents/cowork-ghost-extension/`).
 3. Open Microsoft Edge.
 4. Navigate to `edge://extensions/`.
@@ -60,7 +60,7 @@ That's it. The extension is now active. As long as Edge is open during your work
 - `extension/popup.html` + `popup.js` — toolbar popup UI
 - `extension/prompts.json` — the read-only prompt pool
 - `extension/icons/` — toolbar icons
-- `cowork-ghost-extension-v1.0.0.zip` — pre-zipped, ready to load unpacked
+- `cowork-ghost-extension-v1.3.1.zip` — pre-zipped, ready to load unpacked
 
 ## Sharing with other MCAPS Israel folks
 

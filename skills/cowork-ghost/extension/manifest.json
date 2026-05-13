@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Cowork Ghost",
-  "version": "1.0.0",
+  "version": "1.3.1",
   "description": "Silently fires safe, read-only prompts into M365 Copilot Cowork at random workday moments — so you look like an active coworker.",
   "author": "MCAPS Israel",
   "permissions": ["alarms", "storage", "tabs", "scripting"],
