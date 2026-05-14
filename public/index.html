@@ -1764,6 +1764,32 @@ document.getElementById("submitGhBtn").addEventListener("click", async () => {
   if (idx >= 0) localSkills[idx] = skill; else localSkills.unshift(skill);
   saveLocal(); mergeAll(); renderCategoryStrip(); renderCategoryFilter(); renderGrid(); updateMetrics();
 
+  // Pre-open the popup synchronously while we still have user activation
+  // from the click. After any `await` (the API call or
+  // navigator.clipboard.writeText), strict browsers (Safari, Firefox with
+  // popup blocking) will block a fresh window.open(). We navigate this
+  // window below, or close it if the signed-in API path succeeds.
+  // Note: we can't pass "noopener" here — it makes window.open return
+  // null and we need the reference. We drop popup.opener manually
+  // before navigation as the cross-browser equivalent.
+  let popup = null;
+  try { popup = window.open("about:blank", "_blank"); } catch (_) {}
+
+  // Copy SKILL.md to the clipboard up-front, BEFORE the fetch, so this
+  // still runs inside the user-activation window the Clipboard API
+  // requires on most browsers.
+  let clipboardOk = false;
+  if (skill.skillMd) {
+    try {
+      await navigator.clipboard.writeText(skill.skillMd);
+      clipboardOk = true;
+    } catch (_) {
+      // Clipboard API may be blocked (insecure context, denied permission).
+      // We'll keep the submit modal open below so the user can copy
+      // SKILL.md from the editor manually.
+    }
+  }
+
   if (currentUser) {
     try {
       const res = await fetch("/api/skills-submit", {
@@ -1778,6 +1804,7 @@ document.getElementById("submitGhBtn").addEventListener("click", async () => {
       if (res.ok) {
         let j = null; try { j = await res.json(); } catch (_) {}
         if (j && j.ok) {
+          if (popup && !popup.closed) { try { popup.close(); } catch (_) {} }
           closeSubmit();
           toast("Submitted! Awaiting review.");
           return;
@@ -1792,13 +1819,16 @@ document.getElementById("submitGhBtn").addEventListener("click", async () => {
     }
   }
 
-  // Build a SHORT issue body. The actual SKILL.md is copied to the user's
-  // clipboard (below) rather than URL-encoded into the body= query param.
+  // Build a SHORT issue body. The actual SKILL.md is on the user's
+  // clipboard (above) rather than URL-encoded into the body= query param.
   //
   // Why: encodeURIComponent() of a real SKILL.md easily produces 10-20+ KB,
   // and GitHub's new-issue endpoint rejects request URLs over ~8 KB with
   // "Whoa there! Your request URL is too long." Keeping SKILL.md out of
   // the URL makes this work for any size.
+  const clipboardHint = clipboardOk
+    ? "<!-- It has been copied to your clipboard \u2014 Ctrl+V / Cmd+V works. -->"
+    : "<!-- Copy the SKILL.md from the Hub submit editor and paste it below. -->";
   const issueBody = [
     "## Skill submission (anonymous - via Hub)", "",
     "- **Name:** " + skill.name,
@@ -1812,33 +1842,40 @@ document.getElementById("submitGhBtn").addEventListener("click", async () => {
     "",
     "### SKILL.md",
     "<!-- Paste your SKILL.md content into the fenced block below. -->",
-    "<!-- It has been copied to your clipboard — Ctrl+V / Cmd+V works. -->",
+    clipboardHint,
     "```markdown",
     "",
     "```"
   ].join("\n");
-
-  let clipboardOk = false;
-  if (skill.skillMd) {
-    try {
-      await navigator.clipboard.writeText(skill.skillMd);
-      clipboardOk = true;
-    } catch (_) {
-      // Clipboard API may be blocked (insecure context or denied permission).
-      // The user can still copy SKILL.md from the editor manually.
-    }
-  }
 
   const url = "https://github.com/" + GH_REPO + "/issues/new"
     + "?title=" + encodeURIComponent("[skill] " + skill.name)
     + "&labels=skill-submission"
     + "&body=" + encodeURIComponent(issueBody);
 
-  window.open(url, "_blank", "noopener");
-  closeSubmit();
-  toast(clipboardOk
-    ? "Issue opened. Your SKILL.md is in your clipboard \u2014 paste it inside the markdown block."
-    : "Issue opened. Paste your SKILL.md into the markdown block in the issue body.");
+  // Navigate the pre-opened popup; drop opener first for security
+  // (rough equivalent of rel=noopener, since we couldn't use the
+  // "noopener" feature on the initial open). Fall back to a fresh
+  // window.open if the pre-open was blocked or already closed.
+  if (popup && !popup.closed) {
+    try { popup.opener = null; } catch (_) {}
+    try { popup.location.href = url; }
+    catch (_) { window.open(url, "_blank", "noopener"); }
+  } else {
+    window.open(url, "_blank", "noopener");
+  }
+
+  // Close the submit modal only when we actually copied SKILL.md, or
+  // when there was none to copy. Otherwise keep it open so the user
+  // can copy SKILL.md from the editor and paste into the issue tab.
+  if (clipboardOk || !skill.skillMd) {
+    closeSubmit();
+    toast(clipboardOk
+      ? "Issue opened. Your SKILL.md is in your clipboard \u2014 paste it inside the markdown block."
+      : "Issue opened. Fill in the issue body to submit.");
+  } else {
+    toast("Issue opened. Couldn't auto-copy SKILL.md \u2014 copy it from the editor here, then paste into the new issue tab.");
+  }
 });
 
 document.getElementById("searchInput").addEventListener("input", e => { activeQuery = e.target.value; renderGrid(); });
